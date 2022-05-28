@@ -1,0 +1,33 @@
+/* Gilroy */
+@font-face {
+    font-family: 'Gilroy';
+    src: url(gilroy/Gilroy-Medium.ttf) format(truetype);
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gilroy';
+    src: url(gilroy/Gilroy-Bold.ttf) format(truetype);
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gilroy';
+    src: url(gilroy/Gilroy-ExtraBold.otf) format(truetype);
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* Chronicle Display */
+@font-face {
+    font-family: 'Chronicle Display';
+    src: url(/fonts/chronicle-display/ChronicleDisplayBold.otf) format("opentype");
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Chronicle Display';
+    src: url(/fonts/chronicle-display/ChronicleDisplaySemibold.otf) format("opentype");
+    font-weight: 600;
+    font-style: normal;
+}
