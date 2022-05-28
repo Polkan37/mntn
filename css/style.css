@@ -146,7 +146,7 @@ body {
     top: 0;
     width: 24px;
     height: 24px;
-    background-image: url("/img/cart.svg");
+    background-image: url("../img/cart.svg");
 }
 .nav-button {
     display: none;
@@ -284,7 +284,7 @@ body {
     width: 16px;
     height: 24px;
     transform: translateY(-50%);
-    background-image: url("/img/arrow.svg");
+    background-image: url("../img/arrow.svg");
 }
 /* ----------------- main -------------------- */
 .main {
@@ -384,7 +384,7 @@ body {
     width: 24px;
     height: 16px;
     transform: translateY(-50%);
-    background-image: url("/img/arrow-right.svg");
+    background-image: url("../img/arrow-right.svg");
 }
 .article-read-more:hover{
     transform: translateX(5%);
