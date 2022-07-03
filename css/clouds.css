@@ -1,5 +1,5 @@
 
-.cloud {
+.clouds {
     overflow: hidden;
     position: relative;
     width:100%;
@@ -8,7 +8,7 @@
     background: url(/upload2/mountain.jpg);
     background-size: cover;
 }
-.cloud img {
+.clouds img {
     width: 100%;
     left: 0;
     top: 0;
@@ -68,7 +68,7 @@
     z-index: 6;
     -webkit-animation: animCloud 60s infinite linear;
     -moz-animation: animCloud 60s infinite linear;
-    animation: animCloud 60s infinite linear
+    animation: animCloud 60s 25s infinite linear
 }
 .cloud4 {
     -webkit-animation: animCloud 80s infinite linear;

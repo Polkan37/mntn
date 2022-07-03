@@ -2,25 +2,16 @@
     .hero-title {
         font-size: 68px;
     }
+    .wrapper {
+        min-height: 20%;
+    }
 }
 @media (max-width: 920px) {
-    .footer-row{
-        flex-direction: column-reverse;
-    }
-    .footer-nav-wrapper {
-        margin-bottom: 80px;
+    .wrapper {
+        min-height: 50%;
     }
 }
 @media (max-width: 800px) {
-    .nav, .account {
-        display: none;
-    }
-    .nav-button {
-        display: block;
-    }
-    .mobile-nav-active {
-        display: flex;
-    }
     .hero-title {
         font-size: 48px;
     }
@@ -34,12 +25,7 @@
 }
 
 @media (max-width: 560px) {
-    .footer-nav-wrapper {
-        flex-direction: column;
+    .wrapper {
+        min-height: 60%;
     }
-    .footer-nav +.footer-nav {
-        margin-top: 60px;
-        margin-left: auto;
-    }
-    
 }

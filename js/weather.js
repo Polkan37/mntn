@@ -12,17 +12,45 @@ const form = document.getElementById("locationInput");
 const search = document.querySelector(".search");
 const btn = document.querySelector(".submit");
 const cities = document.querySelectorAll(".city");
+const weatherApiCodes = {
+  clear: [1000],
+  cloudy: [1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282],
+  rainy: [1063, 1069, 1072, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195, 1204, 1207, 1240, 1243, 1246, 1249, 1252],
+  snowy: [1066, 1114, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1279, 1282]
+} 
+
 
 //Default city when the page load
-
-let cityInput = "london";
-cities.forEach((city) => {
-  city.addEventListener("click", (e) => {
-    cityInput = e.target.innerHTML;
+async function getResponseByType(url, type = "text") {
+  const res = await fetch(url);
+  return res[type]?.();
+}
+let cityInput;
+getResponseByType("https://www.cloudflare.com/cdn-cgi/trace").then(
+  async (data) => {
+    const ipRegex = /ip=[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/;
+    const ip = data.match(ipRegex)[0].slice(3);
+    console.log(ip);
+    let city = await getCity(ip);
+    if(city == "Kyiv") city = "Kiev";
+    cityInput = city;
     fetchWeatherData();
     weather.style.opacity = "0";
-  });
-});
+  }
+);
+
+async function getCity(ip) {
+  try {
+    const data = await getResponseByType(
+      `http://ip-api.com/json/${ip}`,
+      "json"
+    );
+    const { city } = data;
+    return city;
+  } catch (error) {
+    // doSmthForUserInstead()
+  }
+}
 
 form.addEventListener("submit", (e) => {
   if (search.value.length == 0) {
@@ -86,68 +114,11 @@ function fetchWeatherData() {
         timeOfDay = "night";
       }
 
-      //   const validCodesForSmth = [1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282]
-
-      if (code === 1000) {
-        weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/clear.jpg)`;
-        btn.style.background = "#e5ba92";
-        if (timeOfDay == "nigth") {
-          btn.style.background = "#181e27";
-        }
-      } else if (
-        code == 1003 ||
-        code == 1006 ||
-        code == 1009 ||
-        code == 1030 ||
-        code == 1069 ||
-        code == 1087 ||
-        code == 1135 ||
-        code == 1273 ||
-        code == 1276 ||
-        code == 1279 ||
-        code == 1282
-        // validCodesForSmth.find((elCode) => elCode === code)
-      ) {
-        weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/cloudy.jpg)`;
-        btn.style.background = "#fa6d1b";
-        if (timeOfDay == "nigth") {
-          btn.style.background = "#181e27";
-          // and rain
-        }
-      } else if (
-        code == 1063 ||
-        code == 1069 ||
-        code == 1072 ||
-        code == 1150 ||
-        code == 1153 ||
-        code == 1180 ||
-        code == 1183 ||
-        code == 1186 ||
-        code == 1189 ||
-        code == 1192 ||
-        code == 1195 ||
-        code == 1204 ||
-        code == 1207 ||
-        code == 1240 ||
-        code == 1243 ||
-        code == 1246 ||
-        code == 1249 ||
-        code == 1252
-      ) {
-        weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/rainy.jpg)`;
-        btn.style.background = "#647d75";
-        if (timeOfDay == "nigth") {
-          btn.style.background = "#325c80";
-          // and snow
-        }
-      } else {
-        weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/snowy.jpg)`;
-        btn.style.background = "#4d72aa";
-        if (timeOfDay == "nigth") {
-          btn.style.background = "#1b1b1b";
-        }
+      for(let [group, value] of Object.entries(weatherApiCodes)) {
+          if(code == value) {
+            weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/${group}.jpg)`;
+          }
       }
-      // showUpEvery
       weather.style.opacity = "1";
     })
     .catch((err) => {
@@ -157,35 +128,7 @@ function fetchWeatherData() {
     });
 }
 
-fetchWeatherData();
 
-async function getResponseByType(url, type = "text") {
-  const res = await fetch(url);
-  return res[type]?.();
-}
-
-getResponseByType("https://www.cloudflare.com/cdn-cgi/trace").then(
-  async (data) => {
-    const ipRegex = /ip=[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/;
-    const ip = data.match(ipRegex)[0].slice(3);
-    console.log(ip);
-    const city = await getCity(ip);
-    console.log(city);
-  }
-);
-
-async function getCity(ip) {
-  try {
-    const data = await getResponseByType(
-      `http://ip-api.com/json/${ip}`,
-      "json"
-    );
-    const { city } = data;
-    return city;
-  } catch (error) {
-    // doSmthForUserInstead()
-  }
-}
 
 /*
 btn.addEventListener('click', (event) =>{
