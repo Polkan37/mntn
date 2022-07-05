@@ -128,8 +128,8 @@ function weatherStyle(state, timeOfDay) {
   }
 }
 
-function fetchWeatherData() {
-  fetch(
+async function fetchWeatherData() {
+  await fetch(
     `https://api.weatherapi.com/v1/current.json?key=e955a0e530264aa6af6105653223006&q=${cityInput}`
   )
     .then((response) => response.json())
