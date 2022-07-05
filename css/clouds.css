@@ -3,9 +3,7 @@
     overflow: hidden;
     position: relative;
     width:100%;
-    padding-bottom: 100%;
-    height: 0;
-    background: url(/upload2/mountain.jpg);
+    height: 100%;
     background-size: cover;
 }
 .clouds img {

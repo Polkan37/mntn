@@ -1,4 +1,8 @@
 const weather = document.querySelector(".weather-app");
+const body = document.querySelector("body");
+const clouds = document.querySelector(".clouds");
+const mountains = document.querySelector(".mountain");
+const healWithMan = document.querySelector(".heal");
 const temp = document.querySelector(".temp");
 const dateOutput = document.querySelector(".date");
 const timeOutput = document.querySelector(".time");
@@ -9,16 +13,20 @@ const cloudOutput = document.querySelector(".cloud");
 const humidityOutput = document.querySelector(".humidity");
 const windOutput = document.querySelector(".wind");
 const form = document.getElementById("locationInput");
-const search = document.querySelector(".search");
-const btn = document.querySelector(".submit");
+const search = document.querySelector(".location");
+const btn = document.querySelector(".search");
 const cities = document.querySelectorAll(".city");
 const weatherApiCodes = {
   clear: [1000],
-  cloudy: [1003, 1006, 1009, 1030, 1069, 1087, 1135, 1273, 1276, 1279, 1282],
-  rainy: [1063, 1069, 1072, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195, 1204, 1207, 1240, 1243, 1246, 1249, 1252],
-  snowy: [1066, 1114, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1279, 1282]
-} 
-
+  cloudy: [1003, 1006, 1009, 1030, 1069, 1087, 1273, 1276, 1279, 1282],
+  rainy: [
+    1063, 1069, 1072, 1135, 1150, 1153, 1180, 1183, 1186, 1189, 1192, 1195,
+    1204, 1207, 1240, 1243, 1246, 1249, 1252,
+  ],
+  snowy: [
+    1066, 1114, 1210, 1213, 1216, 1219, 1222, 1225, 1255, 1258, 1279, 1282,
+  ],
+};
 
 //Default city when the page load
 async function getResponseByType(url, type = "text") {
@@ -30,12 +38,11 @@ getResponseByType("https://www.cloudflare.com/cdn-cgi/trace").then(
   async (data) => {
     const ipRegex = /ip=[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/;
     const ip = data.match(ipRegex)[0].slice(3);
-    console.log(ip);
     let city = await getCity(ip);
-    if(city == "Kyiv") city = "Kiev";
+    if (city == "Kyiv") city = "Kiev";
     cityInput = city;
     fetchWeatherData();
-    weather.style.opacity = "0";
+    body.style.opacity = "0";
   }
 );
 
@@ -59,7 +66,7 @@ form.addEventListener("submit", (e) => {
     cityInput = search.value;
     fetchWeatherData();
     search.value = "";
-    weather.style.opacity = "0";
+    body.style.opacity = "0";
   }
 
   e.preventDefault();
@@ -78,7 +85,44 @@ function dayOfTheWeek(day, month, year) {
   return weekday[new Date(`${month}/${day}/${year}`).getDay()];
 }
 
-function fetchWeatherData() {
+function weatherStyle(state, timeOfDay) {
+  const clearSky = "no-repeat center top/100%  url(../img/bg-00-sunny.jpeg)";
+  const greySky = "none";
+  const clearNightSky =
+    "no-repeat center top/100% url(../img/bg-00-night-clear.png)";
+  const nightCloudySky =
+    "no-repeat center top/100% url(../img/bg-00-night-cloudy.png)";
+  let backgroundWeather = {};
+  switch (state) {
+    case "clear":
+      clouds.style.display = "none";
+      timeOfDay == "day"
+        ? (body.style.background = clearSky)
+        : (body.style.background = clearNightSky);
+      break;
+    case "cloudy":
+      clouds.style.display = "block";
+      timeOfDay == "day"
+        ? (body.style.background = clearSky)
+        : (body.style.background = nightCloudySky);
+      break;
+    case "rainy":
+      clouds.style.display = "block";
+      timeOfDay == "day"
+        ? (body.style.background = greySky)
+        : (body.style.background = nightCloudySky);
+      break;
+    case "snowy":
+      timeOfDay == "day"
+        ? (body.style.background = clearSky)
+        : (body.style.background = nightCloudySky);
+      mountains.src = "../img/bg-01-snowy.png";
+      healWithMan.src = "../img/bg-02-snow.png";
+      break;
+  }
+}
+
+async function fetchWeatherData() {
   fetch(
     `https://api.weatherapi.com/v1/current.json?key=e955a0e530264aa6af6105653223006&q=${cityInput}`
   )
@@ -114,51 +158,21 @@ function fetchWeatherData() {
         timeOfDay = "night";
       }
 
-      for(let [group, value] of Object.entries(weatherApiCodes)) {
-          if(code == value) {
-            weather.style.backgroundImage = `url(../img/weather/images/${timeOfDay}/${group}.jpg)`;
-          }
+      console.log("code", code);
+
+      function findCode(array) {
+        for (let el of array) {
+          if (code == el) return true;
+        }
       }
-      weather.style.opacity = "1";
+      for (let [group, value] of Object.entries(weatherApiCodes)) {
+        if (findCode(value)) weatherStyle(group, timeOfDay);
+      }
+      body.style.opacity = "1";
     })
     .catch((err) => {
       console.log("err", err);
       alert("City not found, please try again");
-      weather.style.opacity = "1";
+      body.style.opacity = "1";
     });
 }
-
-
-
-/*
-btn.addEventListener('click', (event) =>{
-    getUser(1, (err, user) => {
-        fetch(http://srany/${user.ip}, (err, data) => {
-            data.city
-        })
-     }
-
-})
-*/
-
-/*
-const eventPromise = btn.addEventListener('click)
-const userPromise = click.then((event) => getUser(1, event))
-userPromise.then(() => fetch(http://srany/${user.ip}, (err, data) => {
-             city = data.city
-        }))
-*/
-
-/* async function getCity() {
-    console.log('1')
-    const event = await btn.addEventListener('click)
-    console.log('2')
-    const user = await getUser(1, event)
-    console.log('3')
-    const city = await fetch(http://srany/${user.ip})
-    console.log('4')
-    return city
-}
-
-await getCity()
-*/

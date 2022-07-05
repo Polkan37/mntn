@@ -1,31 +1,63 @@
 @media (max-width: 1200px) {
-    .hero-title {
-        font-size: 68px;
-    }
-    .wrapper {
-        min-height: 20%;
-    }
+  .hero-title {
+    font-size: 68px;
+  }
+  .wrapper {
+    min-height: 20%;
+  }
 }
 @media (max-width: 920px) {
-    .wrapper {
-        min-height: 50%;
-    }
+  .wrapper {
+    min-height: 50%;
+  }
+  .container > div {
+    gap: 20px !important;
+    margin-left: 0px !important;
+  }
 }
 @media (max-width: 800px) {
-    .hero-title {
-        font-size: 48px;
-    }
-    .hero-tagline::before {
-        width: 42px;
-    }
-    .hero-tagline {
-        font-size: 14px;
-        padding-left: 62px;
-    }
+  .hero-title {
+    font-size: 48px;
+  }
+  .hero-tagline::before {
+    width: 42px;
+  }
+  .hero-tagline {
+    font-size: 14px;
+    padding-left: 62px;
+  }
 }
 
 @media (max-width: 560px) {
-    .wrapper {
-        min-height: 60%;
-    }
+  .wrapper {
+    min-height: 60%;
+  }
+  .row {
+    flex-direction: column;
+    padding: 30px 0px 0px 0px;
+  }
+  .find-city {
+    padding-top: 150px;
+  }
+  .nav-wrapper {
+    margin-bottom: 30px;
+  }
+  .container > div {
+    display: grid !important;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  .details {
+    padding-top: 30px;
+  }
+  .temp {
+    font-size: 30px !important;
+    margin: 0;
+}
+}
+
+@media (max-width: 353px) {
+  .container > div {
+    grid-template-columns: 1fr 1fr;
+    gap: 0 !important;
+  }
 }

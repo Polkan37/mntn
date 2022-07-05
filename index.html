@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="fonts/stylesheets.css" />
   </head>
   <body>
-    <div class="mountains"><img src="img/bg-01.png" alt="mountains" /></div>
-    <div class="man"><img src="img/bg-02.png" alt="man" /></div>
+    <div class="mountains"><img src="img/bg-01.png" class="mountain" alt="mountains" /></div>
+    <div class="man"><img src="img/bg-02.png" class="heal" alt="man" /></div>
     <div class="clouds">
       <img src="img/cloud-01.png" alt="" class="cloud1" />
       <img src="img/cloud-02.png" alt="" class="cloud2" />
@@ -25,15 +25,15 @@
         <nav class="nav-wrapper">
           <div class="container-wide">
             <div class="row">
-              <div class="logo">ToDay</div>
+              <div class="logo">Today Weather</div>
 
-              <form id="locationInput">
+              <form class="find-city" id="locationInput">
                 <input
                   type="text"
-                  class="search"
+                  class="location"
                   placeholder="Search Location..."
                 />
-                <button type="submit" class="submit">&#x1F50E;</button>
+                <button type="submit" class="search"><img src="img/icons-search.png" alt="&#x1F50E;" width="25" height="25"></button>
               </form>
             </div>
           </div>
@@ -47,6 +47,22 @@
         <div class="weather-app">
           <div class="container">
             <div>
+
+              <ul class="details">
+                <h4>Weather Details:</h4>
+                <li>
+                  <span>Cloudy</span>
+                  <span class="cloud"></span>
+                </li>
+                <li>
+                  <span>Humidity</span>
+                  <span class="humidity"></span>
+                </li>
+                <li>
+                  <span>Wind</span>
+                  <span class="wind"></span>
+                </li>
+              </ul>
               <h2 class="temp"></h2>
               <div class="weather">
                 <img
@@ -65,21 +81,6 @@
                   <span class="date"> </span>
                 </p>
               </div>
-              <ul class="details">
-                <h4>Weather Details:</h4>
-                <li>
-                  <span>Cloudy</span>
-                  <span class="cloud"></span>
-                </li>
-                <li>
-                  <span>Humidity</span>
-                  <span class="humidity"></span>
-                </li>
-                <li>
-                  <span>Wind</span>
-                  <span class="wind"></span>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
