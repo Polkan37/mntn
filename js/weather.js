@@ -40,8 +40,11 @@ getResponseByType("https://www.cloudflare.com/cdn-cgi/trace").then(
     const ipRegex = /ip=[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/;
     const ip = data.match(ipRegex)[0].slice(3);
     let city = await getCity(ip);
+    if(!city) city = "london"; // city by default
     if (city == "Kyiv") city = "Kiev";
     cityInput = city;
+    console.log('city', city)
+    
     fetchWeatherData();
     body.style.opacity = "0";
   }
@@ -56,7 +59,9 @@ async function getCity(ip) {
     const { city } = data;
     return city;
   } catch (error) {
-    // doSmthForUserInstead()
+    alert("Can't define city by IP");
+    city = "london";
+    return city;
   }
 }
 
@@ -123,7 +128,7 @@ function weatherStyle(state, timeOfDay) {
   }
 }
 
-async function fetchWeatherData() {
+function fetchWeatherData() {
   fetch(
     `https://api.weatherapi.com/v1/current.json?key=e955a0e530264aa6af6105653223006&q=${cityInput}`
   )
