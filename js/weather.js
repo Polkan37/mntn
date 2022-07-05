@@ -9,6 +9,7 @@ const timeOutput = document.querySelector(".time");
 const conditionOutput = document.querySelector(".condition");
 const nameOutput = document.querySelector(".name");
 const icon = document.querySelector(".icon");
+const headIcon = document.querySelector(".main-icon");
 const cloudOutput = document.querySelector(".cloud");
 const humidityOutput = document.querySelector(".humidity");
 const windOutput = document.querySelector(".wind");
@@ -147,6 +148,7 @@ async function fetchWeatherData() {
         "//cdn.weatherapi.com/weather/64x64/".length
       );
       icon.src = "../img/weather/icons/" + iconId;
+      headIcon.href = "../img/weather/icons/" + iconId;
       cloudOutput.innerHTML = data.current.cloud + "%";
       humidityOutput.innerHTML = data.current.humidity + "%";
       windOutput.innerHTML = data.current.wind_kph + "km/h";
@@ -157,14 +159,12 @@ async function fetchWeatherData() {
       if (!data.current.is_day) {
         timeOfDay = "night";
       }
-
-      console.log("code", code);
-
       function findCode(array) {
         for (let el of array) {
           if (code == el) return true;
         }
       }
+
       for (let [group, value] of Object.entries(weatherApiCodes)) {
         if (findCode(value)) weatherStyle(group, timeOfDay);
       }

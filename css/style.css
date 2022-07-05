@@ -53,7 +53,6 @@ body {
   background: url(../img/bg-00.png), #0b1d26;
   background-size: 100%;
   background-repeat: no-repeat;
-  transition: 200ms;
 }
 .mountains img {
   position: absolute;
