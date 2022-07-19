@@ -59,8 +59,7 @@ async function getCity(ip) {
     const { city } = data;
     return city;
   } catch (error) {
-    alert("Can't define city by IP");
-    city = "london";
+    city = "Kyiv";
     return city;
   }
 }
@@ -92,12 +91,12 @@ function dayOfTheWeek(day, month, year) {
 }
 
 function weatherStyle(state, timeOfDay) {
-  const clearSky = "no-repeat center top/100%  url(../img/bg-00-sunny.jpeg)";
+  const clearSky = "no-repeat center top/100%  url(img/bg-00-sunny.jpeg)";
   const greySky = "none";
   const clearNightSky =
-    "no-repeat center top/100% url(../img/bg-00-night-clear.png)";
+    "no-repeat center top/100% url(img/bg-00-night-clear.png)";
   const nightCloudySky =
-    "no-repeat center top/100% url(../img/bg-00-night-cloudy.png)";
+    "no-repeat center top/100% url(img/bg-00-night-cloudy.png)";
   let backgroundWeather = {};
   switch (state) {
     case "clear":
@@ -122,8 +121,8 @@ function weatherStyle(state, timeOfDay) {
       timeOfDay == "day"
         ? (body.style.background = clearSky)
         : (body.style.background = nightCloudySky);
-      mountains.src = "../img/bg-01-snowy.png";
-      healWithMan.src = "../img/bg-02-snow.png";
+      mountains.src = "img/bg-01-snowy.png";
+      healWithMan.src = "img/bg-02-snow.png";
       break;
   }
 }
@@ -152,8 +151,8 @@ async function fetchWeatherData() {
       const iconId = data.current.condition.icon.substr(
         "//cdn.weatherapi.com/weather/64x64/".length
       );
-      icon.src = "../img/weather/icons/" + iconId;
-      headIcon.href = "../img/weather/icons/" + iconId;
+      icon.src = "img/weather/icons/" + iconId;
+      headIcon.href = "img/weather/icons/" + iconId;
       cloudOutput.innerHTML = data.current.cloud + "%";
       humidityOutput.innerHTML = data.current.humidity + "%";
       windOutput.innerHTML = data.current.wind_kph + "km/h";
