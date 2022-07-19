@@ -6,4 +6,4 @@ Here you can check current weather. On a local host it works fine, but on the se
 
 ---
 
-Be carful with ukrainian transliteration, weather api sudently know only russian versions as Kiev,  Krivoy Rog, Vinitsa
+Be carful with ukrainian transliteration, weather api sudently know only russian versions as Kiev,  Krivoy Rog, Vinitsa.
